@@ -1,0 +1,47 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allow_failure }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1']
+        composer_flags: ['--prefer-stable']
+        allow_failure: [false]
+        include:
+          - php: '7.2'
+            composer_flags: '--prefer-stable --prefer-lowest'
+            allow_failure: true
+          - php: '8.1'
+            composer_flags: ''
+            allow_failure: true
+
+    name: "PHP ${{ matrix.php }} - ${{ matrix.composer_flags != '' && format(' - Composer {0}', matrix.composer_flags) || '' }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update ${{ matrix.composer_flags }} --no-interaction --no-progress
+
+      - name: Execute tests
+        run: composer test || ${{ matrix.allow_failure }}

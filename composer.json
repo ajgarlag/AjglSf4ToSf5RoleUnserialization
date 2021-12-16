@@ -1,0 +1,35 @@
+{
+    "name": "ajgl/sf4-to-sf5-role-unserialization",
+    "description": "BC layer to keep users logged in after upgrading your Symfony 4 app to Symfony 5.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Symfony\\Component\\Security\\Core\\Role\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symfony\\Component\\Security\\Core\\Role\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antonio J. García Lagar",
+            "email": "aj@garcialagar.es"
+        }
+    ],
+    "conflict": {
+        "symfony/security-core": "<5.0 || >=6.0"
+    },
+    "require-dev": {
+        "symfony/security-core": "^5",
+        "phpunit/phpunit": "^8.5"
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit --colors=always"
+        ]
+    }
+}
