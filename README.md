@@ -3,7 +3,8 @@ AjglSf4ToSf5RoleUnserialization
 
 BC layer to keep users logged in after upgrading your Symfony 4 app to Symfony 5. See [#44676].
 
-**<NOTE>** This issue has been already fixed in Symfony code. This package is not needed anymore. See [#44805]
+| :exclamation:  This issue has been already fixed in Symfony code. This package is not needed anymore. See [#44805]   |
+|----------------------------------------------------------------------------------------------------------------------|
 
 The problem
 -----------
